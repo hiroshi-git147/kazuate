@@ -1,36 +1,36 @@
-package kazuate;
-
-import java.util.Scanner;
-
-public class Test02 {
+package test02;
+// コンソールから入力した4桁の数字を配列に変換
+public class Main {
 
 	public static void main(String[] args) {
-		// TODO 自動生成されたメソッド・スタブ
-		int[] array = getUserNumber(4);
-		for(int i = 0; i < array.length; i++) {
-			System.out.println(i + ":" + array[i]);
-		}
-	}
-	
-	public static int[] getUserNumber(int number) {
-    	Scanner sc = new Scanner(System.in);
-    	int[] array = new int[number];
-    	System.out.println("4桁の数字を入力してください");
-		int user = sc.nextInt();
-			
-		for(int i = 0; i < array.length; i++) {
-			if (array[i] == 0) {
-				array[i] = user / 1000;
-			} else if (array[i] == 1) {
-				array[i] = user / 100 - (user / 1000 * 10);
-			} else if (array[i] == 2) {
-				array[i] = user / 10 - (user / 100 * 10);
-			} else {
-				array[i] = user % 10;
+		int i = 3489;
+		int[] array = new int[4];
+		for(int num = 0; num < array.length; num++) {
+			switch (num) {
+				case (0):
+					array[num] = i / 1000;
+					break;
+				case 1:
+					array[num] = i / 100 - (i / 1000 * 10);
+					break;
+				case 2:
+					array[num] = i / 10 - (i / 100 * 10);
+					break;
+				case 3:
+					array[num] = i % 10;
+					break;
 			}
+			System.out.println(num + ":" + array[num]);	
 		}
-
-    	return array;
-    }
+		
+//		int j = i / 1000;
+//		int k = i / 100 - (i / 1000 * 10);
+//		int m = i / 10 - (i / 100 * 10);
+//		int n = i % 10;
+//		System.out.println(j);
+//		System.out.println(k);
+//		System.out.println(m);
+//		System.out.println(n);
+	}
 
 }
