@@ -1,69 +1,63 @@
-/*　問題点
- * ・一回の入力で正解した場合の分岐に不具合発生
- * ・桁は違うが数値が一致しているときは△を表示するプログラムができていない
- */
-
 package kazuate;
 
 import java.util.Scanner;
 
 public class Kazuate{
+	final static int answer_size = 4;  // 当てる数。
+	static int count = 1; // カウンター
+
     public static void main(String[] args){
-    	int[] comArray = comGuess(4);
+    	int[] comAnswer = comGuess();
     	System.out.print("パソコンの答え；");
-	    
-	// デバッグ用
-    	for (int com : comArray){
+
+    	// デバッグ用(パソコンの答え)
+    	for (int com : comAnswer){
     		System.out.print(com);
     	}
     	System.out.println("");
-	
-    	System.out.println("パソコンが作成した4桁の数字を予想してください");
-    	int[] userArray = getUser(4);
-    	int count = 0;
-    	while (comArray != userArray) {
-    		for(int i = 0; i < comArray.length; i++) {
-    			if (comArray[i] == userArray[i]) {
-    				System.out.print("○");
-    			} else {
-    				System.out.print("X");
-    			}
-    		}
+
+    	System.out.println("4桁の数字を予想してください");
+
+    	int[] userAnswer = userGuess();
+    	while (comAnswer != userAnswer) {
+    		checkAnswer(comAnswer, userAnswer);
+    		// カウントを1増やす
     		count++;
-    		System.out.println("");
-    		System.out.print("[入力]＞");
-    		userArray = getUser(4);
+    		userAnswer = userGuess();
     	}
-		
-    	System.out.println("「正解です！」");
+
+
+		System.out.println("「正解です！」");
 		System.out.println("あなたは" + count + "回で正解しました。」");
 		System.out.print("パソコンの答えは：");
-    	for (int com : comArray){
+    	for (int com : comAnswer){
     		System.out.print(com);
-    		
+
     	}
+
+
+
      }
-    
+
     // コンピューターが無作為に作成した４桁の数字メソッド
-    public static int[] comGuess(int size) {
-    	int count = 4;
+    public static int[] comGuess() {
     	// 10個の要素を持つ配列を作成
-    	int[] comNum = new int[size];
+    	int[] answer = new int[answer_size];
     	// 4回繰り返す
-        for(int i = 0; i < count; i++) {
-	        Loop: while(true) {
+        for(int i = 0; i < answer.length; i++) {
+        	Loop: while(true) {
 	        	// trueの場合0～9の数字を生成
-	        	comNum[i] =new java.util.Random().nextInt(9);
+	        	answer[i] = (int)(Math.random()*10);
 	        	for(int j = 0; j < i; j++) {
 	        		// その前までの数値が同じ数値の場合数値代入からやり直し
-	        		if(comNum[j] == comNum[i]) continue Loop;
+	        		if(answer[j] == answer[i]) continue Loop;
 	        	}
 	        	break;
 	        }
         }
-        return comNum;
+        return answer;
     }
-    
+
     // コンソールから入力するプログラム
     public static int guessNumber(int number) {
 		Scanner sc = new Scanner(System.in);
@@ -72,13 +66,12 @@ public class Kazuate{
 	}
 
     // コンソールから入力した4桁の数字を配列に変換
-    public static int[] getUser(int number) {
-    	int[] array = new int[number];
-    	
-		int user = guessNumber(4);
-		
+    public static int[] userGuess() {
+    	int[] array = new int[answer_size];
+
+		int user = guessNumber(answer_size);
+
 		for(int i = 0; i < array.length; i++) {
-			
 			// 入力した数字の1〜4桁の数字を配列0〜3に代入するプログラム
 			switch (i) {
 				case (0):
@@ -97,5 +90,20 @@ public class Kazuate{
 		}
 
     	return array;
+    }
+
+    public static void checkAnswer(int[] comAnswer, int[] userAnswer) {
+    	for(int i = 0; i < userAnswer.length; i++) {
+			if(comAnswer[i] == userAnswer[i]) {
+				System.out.print("○");
+			} else {
+				System.out.print("X");
+			}
+		}
+
+		// 数を再入力
+		System.out.println("");
+		System.out.print("[入力]＞");
+
     }
 }
