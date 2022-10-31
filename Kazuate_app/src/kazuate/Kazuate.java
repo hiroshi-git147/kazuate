@@ -11,10 +11,13 @@ public class Kazuate{
     public static void main(String[] args){
     	int[] comArray = comGuess(4);
     	System.out.print("パソコンの答え；");
+	    
+	// デバッグ用
     	for (int com : comArray){
     		System.out.print(com);
     	}
     	System.out.println("");
+	
     	System.out.println("パソコンが作成した4桁の数字を予想してください");
     	int[] userArray = getUser(4);
     	int count = 0;
