@@ -22,7 +22,26 @@ public class Kazuate{
 
 		int[] userAnswer = userGuess();
 
-		checkAnswer(comAnswer, userAnswer);
+
+		// 判定
+		for(int i = 0; i < userAnswer.length; i++) {
+ 			// パソコンとユーザーの入力した値が一致していないとき
+ 			while(comAnswer[i] != userAnswer[i]) {
+ 				// カウントを1増やす
+ 	    		count++;
+ 	    		// ヒントをもらう
+ 	    		getHint(comAnswer, userAnswer);
+ 	    		// 再入力
+ 	    		userAnswer = userGuess();
+ 			}
+     	}
+ 		System.out.println("「正解です！」");
+ 		System.out.println("あなたは" + count + "回で正解しました。」");
+ 		System.out.print("パソコンの答えは：");
+     	for (int com : comAnswer){
+     		System.out.print(com);
+
+     	}
 
      }
 
@@ -103,29 +122,6 @@ public class Kazuate{
 		// 数を再入力
 		System.out.println("");
 		System.out.print("[入力]＞");
-    }
-
-//    判定
-    public static void checkAnswer(int[] comAnswer, int[] userAnswer) {
-
- 		for(int i = 0; i < userAnswer.length; i++) {
- 			// パソコンとユーザーの入力した値が一致していないとき
- 			while(comAnswer[i] != userAnswer[i]) {
- 				// カウントを1増やす
- 	    		count++;
- 	    		// ヒントをもらう
- 	    		getHint(comAnswer, userAnswer);
- 	    		// 再入力
- 	    		userAnswer = userGuess();
- 			}
-     	}
- 		System.out.println("「正解です！」");
- 		System.out.println("あなたは" + count + "回で正解しました。」");
- 		System.out.print("パソコンの答えは：");
-     	for (int com : comAnswer){
-     		System.out.print(com);
-
-     	}
     }
 
 }
