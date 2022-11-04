@@ -3,9 +3,10 @@ package kazuate;
 import java.util.Scanner;
 
 public class Kazuate{
-	final static int ANSWER＿SIZE = 4;  // 当てる数。
+	final static int ANSWER_SIZE = 4;  // 当てる数。
 	static int count = 1; // カウンター
 
+	// メイン
     public static void main(String[] args){
     	int[] comAnswer = comGuess();
     	System.out.print("パソコンの答え；");
@@ -17,16 +18,21 @@ public class Kazuate{
     	System.out.println("");
 
     	System.out.println("4桁の数字を予想してください");
+    	System.out.print("[入力]＞");
 
-    	int[] userAnswer = userGuess();
-    	while (comAnswer != userAnswer) {
-    		checkAnswer(comAnswer, userAnswer);
-    		// カウントを1増やす
-    		count++;
-    		userAnswer = userGuess();
+		int[] userAnswer = userGuess();
+
+		// 判定
+		for(int i = 0; i < userAnswer.length; i++) {
+			while(comAnswer[i] != userAnswer[i]) {
+				// カウントを1増やす
+	    		count++;
+	    		// ヒントをもらう
+	    		getHint(comAnswer, userAnswer);
+	    		// 再度入力
+	    		userAnswer = userGuess();
+			}
     	}
-
-
 		System.out.println("「正解です！」");
 		System.out.println("あなたは" + count + "回で正解しました。」");
 		System.out.print("パソコンの答えは：");
@@ -35,14 +41,12 @@ public class Kazuate{
 
     	}
 
-
-
      }
 
     // コンピューターが無作為に作成した４桁の数字メソッド
     public static int[] comGuess() {
     	// 10個の要素を持つ配列を作成
-    	int[] answer = new int[ANSWER＿SIZE];
+    	int[] answer = new int[ANSWER_SIZE];
     	// 4回繰り返す
         for(int i = 0; i < answer.length; i++) {
         	Loop: while(true) {
@@ -67,9 +71,14 @@ public class Kazuate{
 
     // コンソールから入力した4桁の数字を配列に変換
     public static int[] userGuess() {
-    	int[] array = new int[ANSWER＿SIZE];
+    	int[] array = new int[ANSWER_SIZE];
 
-		int user = guessNumber(ANSWER＿SIZE);
+    	int user = guessNumber(ANSWER_SIZE);
+    	// 入力の判定
+		if (user < 1000 || user > 9999) {
+			System.out.println("エラー：4桁の数字を入力してください");
+			guessNumber(ANSWER_SIZE);
+		}
 
 		for(int i = 0; i < array.length; i++) {
 			// 入力した数字の1〜4桁の数字を配列0〜3に代入するプログラム
@@ -92,25 +101,26 @@ public class Kazuate{
     	return array;
     }
 
-    public static void checkAnswer(int[] comAnswer, int[] userAnswer) {
+    // ヒント生成プログラム
+    public static void getHint(int[] comAnswer, int[] userAnswer) {
     	String total;
     	for(int i = 0; i < userAnswer.length; i++) {
-		if(comAnswer[i] == userAnswer[i]) {
-			total = "○";
-		} else {
-			total = "X";
-		}
-		for(int j = 0; j < comAnswer.length; j++) {
-			if(comAnswer[j] == userAnswer[i]) {
-				total = total.replace("X", "△");
+			if(comAnswer[i] == userAnswer[i]) {
+				total = "○";
+			} else {
+				total = "X";
 			}
+			for(int j = 0; j < comAnswer.length; j++) {
+				if(comAnswer[j] == userAnswer[i]) {
+					total = total.replace("X", "△");
+				}
+			}
+			System.out.print(total);
 		}
-		System.out.print(total);
-	}
-
-	// 数を再入力
-	System.out.println("");
-	System.out.print("[入力]＞");
-
+		// 数を再入力
+		System.out.println("");
+		System.out.print("[入力]＞");
     }
+
+
 }
