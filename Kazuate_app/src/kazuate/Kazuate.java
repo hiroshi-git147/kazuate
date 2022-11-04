@@ -93,17 +93,24 @@ public class Kazuate{
     }
 
     public static void checkAnswer(int[] comAnswer, int[] userAnswer) {
+    	String total;
     	for(int i = 0; i < userAnswer.length; i++) {
-			if(comAnswer[i] == userAnswer[i]) {
-				System.out.print("○");
-			} else {
-				System.out.print("X");
+		if(comAnswer[i] == userAnswer[i]) {
+			total = "○";
+		} else {
+			total = "X";
+		}
+		for(int j = 0; j < comAnswer.length; j++) {
+			if(comAnswer[j] == userAnswer[i]) {
+				total = total.replace("X", "△");
 			}
 		}
+		System.out.print(total);
+	}
 
-		// 数を再入力
-		System.out.println("");
-		System.out.print("[入力]＞");
+	// 数を再入力
+	System.out.println("");
+	System.out.print("[入力]＞");
 
     }
 }
