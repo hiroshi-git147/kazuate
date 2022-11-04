@@ -3,7 +3,7 @@ package kazuate;
 import java.util.Scanner;
 
 public class Kazuate{
-	final static int answer_size = 4;  // 当てる数。
+	final static int ANSWER＿SIZE = 4;  // 当てる数。
 	static int count = 1; // カウンター
 
     public static void main(String[] args){
@@ -42,7 +42,7 @@ public class Kazuate{
     // コンピューターが無作為に作成した４桁の数字メソッド
     public static int[] comGuess() {
     	// 10個の要素を持つ配列を作成
-    	int[] answer = new int[answer_size];
+    	int[] answer = new int[ANSWER＿SIZE];
     	// 4回繰り返す
         for(int i = 0; i < answer.length; i++) {
         	Loop: while(true) {
@@ -67,9 +67,9 @@ public class Kazuate{
 
     // コンソールから入力した4桁の数字を配列に変換
     public static int[] userGuess() {
-    	int[] array = new int[answer_size];
+    	int[] array = new int[ANSWER＿SIZE];
 
-		int user = guessNumber(answer_size);
+		int user = guessNumber(ANSWER＿SIZE);
 
 		for(int i = 0; i < array.length; i++) {
 			// 入力した数字の1〜4桁の数字を配列0〜3に代入するプログラム
