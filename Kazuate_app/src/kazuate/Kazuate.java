@@ -22,7 +22,6 @@ public class Kazuate{
 
 		int[] userAnswer = userGuess();
 
-
 		// 判定
 		for(int i = 0; i < userAnswer.length; i++) {
  			// パソコンとユーザーの入力した値が一致していないとき
@@ -40,9 +39,7 @@ public class Kazuate{
  		System.out.print("パソコンの答えは：");
      	for (int com : comAnswer){
      		System.out.print(com);
-
      	}
-
      }
 
     // コンピューターが無作為に作成した４桁の数字メソッド
@@ -51,55 +48,41 @@ public class Kazuate{
     	int[] answer = new int[ANSWER_SIZE];
     	// 4回繰り返す
         for(int i = 0; i < answer.length; i++) {
-        	Loop: while(true) {
-	        	// trueの場合0～9の数字を生成
-	        	answer[i] = (int)(Math.random()*10);
-	        	for(int j = 0; j < i; j++) {
-	        		// その前までの数値が同じ数値の場合数値代入からやり直し
-	        		if(answer[j] == answer[i]) continue Loop;
-	        	}
-	        	break;
-	        }
+        	answer[i] = (int)(Math.random()*10);
+        	for(int j = 0; j < i;) {
+            	answer[i] = (int)(Math.random()*10);
+        		// その前までの数値が同じ数値の場合数値代入からやり直し
+        		if(answer[j] == answer[i]) {
+        			j=0;
+        			continue;
+        		}
+        		j++;
+        	}
         }
         return answer;
     }
 
     // コンソールから入力するメソッド
-    public static int guessNumber(int number) {
+    public static String guessNumber() {
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		String n = sc.nextLine();
+		if (n.length() > 4 || n.length() < 4 ) {
+			System.out.println("エラー：4桁の数字を入力してください");
+			System.out.print("[入力]＞");
+			n = guessNumber();
+		}
 		return n;
 	}
 
     // コンソールから入力した4桁の数字を配列に変換するメソッド
     public static int[] userGuess() {
-    	int[] array = new int[ANSWER_SIZE];
-
-    	int user = guessNumber(ANSWER_SIZE);
-    	// 入力の判定
-		if (user < 1000 || user > 9999) {
-			System.out.println("エラー：4桁の数字を入力してください");
-			guessNumber(ANSWER_SIZE);
-		}
+    	String user = guessNumber();
+    	String[] strArray = user.split("");
+    	int[] array = new int[4];
 
 		for(int i = 0; i < array.length; i++) {
-			// 入力した数字の1〜4桁の数字を配列0〜3に代入するプログラム
-			switch (i) {
-				case (0):
-					array[i] = user / 1000;
-					break;
-				case 1:
-					array[i] = user / 100 - (user / 1000 * 10);
-					break;
-				case 2:
-					array[i] = user / 10 - (user / 100 * 10);
-					break;
-				case 3:
-					array[i] = user % 10;
-					break;
-			}
+			array[i] = Integer.parseInt(strArray[i]);
 		}
-
     	return array;
     }
 
