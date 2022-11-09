@@ -106,5 +106,4 @@ public class Kazuate{
 		System.out.println("");
 		System.out.print("[入力]＞");
     }
-
 }
