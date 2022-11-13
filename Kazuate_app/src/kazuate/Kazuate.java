@@ -66,7 +66,7 @@ public class Kazuate{
     public static String guessNumber() {
 		Scanner sc = new Scanner(System.in);
 		String n = sc.nextLine();
-		if (n.length() > 4 || n.length() < 4 ) {
+		if (!n.matches("[0-9]{4}")) {
 			System.out.println("エラー：4桁の数字を入力してください");
 			System.out.print("[入力]＞");
 			n = guessNumber();
